@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Document</title>
+
+    <style>
+      * {
+        cursor: none;
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background-image: url("/ankara-anitkabir-muzesi.jpg");
+        background-repeat: no-repeat;
+        background-position: top center;
+        background-size: cover;
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+
+      .container {
+        position: relative;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(7, 7, 7, 0.8);
+      }
+      .circle {
+        position: absolute;
+        border-radius: 100%;
+        width: 200px;
+        height: 200px;
+        box-shadow: rgba(255, 255, 255, 0.12) 0px 2px 4px 0px,
+          rgba(255, 255, 255, 0.32) 0px 2px 16px 0px inset;
+        filter: drop-shadow(0 0 0.75rem rgb(255, 255, 255));
+      }
+
+      .circle i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        transition: 0.5s;
+      }
+      .infinity {
+        border-radius: 100%;
+        padding: 20px;
+        position: absolute;
+        top: 50%;
+        left: 125%;
+        box-shadow: rgba(255, 255, 255, 0.12) 0px 2px 4px 0px;
+        filter: drop-shadow(0 0 0.75rem rgb(255, 255, 255));
+        animation: flip 2s infinite;
+      }
+
+      .birthYear {
+        border-radius: 100%;
+        padding: 15px 10px;
+        position: absolute;
+        top: 25%;
+        left: -50%;
+        color: white;
+        box-shadow: rgba(255, 255, 255, 0.12) 0px 2px 4px 0px;
+        filter: drop-shadow(0 0 0.75rem rgb(255, 255, 255));
+        animation: flip 2s infinite;
+        text-align: center;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 25%;
+        transform: translate(-50% -50%);
+        width: 50%;
+        opacity: 0;
+      }
+      .sun {
+        opacity: 0.5;
+        border-radius: 100%;
+        width: 200px;
+        height: 200px;
+        box-shadow: rgba(255, 255, 255, 0.56) 0px 5px 20rem 30px,
+          rgba(255, 255, 255, 0.25) 0px 0.0625em 0.0925em,
+          rgba(255, 255, 255, 0.25) 0px 0.125em 0.5em,
+          rgba(255, 255, 255, 0.1) 0px 50px 50px 1px inset;
+      }
+      @keyframes flip {
+        0% {
+          -webkit-transform: perspective(400px) scaleX(1) translateZ(0)
+            rotateY(-360deg);
+          transform: perspective(400px) scaleX(1) translateZ(0) rotateY(-360deg);
+          -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+        }
+
+        100% {
+          -webkit-transform: perspective(400px) scaleX(1) translateZ(0)
+            rotateY(0deg);
+          transform: perspective(400px) scaleX(1) translateZ(0) rotateY(0deg);
+          -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="circle">
+        <div class="infinity">
+          <i class="fa-solid fa-infinity"></i>
+        </div>
+        <p class="birthYear">1881</p>
+      </div>
+
+      <img
+        src="/s-2fe990d629705bce99499278e1da089580ed6160.webp"
+        width="1000"
+        height="400"
+        alt=""
+      />
+    </div>
+
+    <script>
+      const container = document.querySelector(".container");
+      let img = document.querySelector("img");
+      const circle = document.querySelector(".circle");
+      container.addEventListener("mousemove", circlePos);
+      function circlePos(e) {
+        console.log(e);
+        let x, y, zoom, w, h, b;
+        a = img.getBoundingClientRect();
+        b = e.clientX;
+        y = e.clientY;
+        x = e.clientX - a.left;
+        zoom = 2;
+        w = circle.offsetWidth / 2;
+        h = circle.offsetHeight / 2;
+
+        circle.style.left = x * zoom - w + "px";
+        circle.style.top = y - h + "px";
+
+        circle.style.backgroundImage = "url('" + img.src + "')";
+        circle.style.backgroundRepeat = "no-repeat";
+        circle.style.backgroundSize =
+          img.width * zoom + "px " + img.height * zoom + "px";
+        circle.style.backgroundPosition =
+          "-" + (x * zoom - w) + "px -" + (y * zoom - h) + "px";
+
+        if (y > 300) {
+          document.querySelector(".sun").style.opacity = "1";
+          document.querySelector(".sun").style.backgroundImage =
+            "url(/mustafa-kemal-ataturk.jpg)";
+          document.querySelector(".sun").style.backgroundPosition = "center";
+          document.querySelector(".sun").style.backgroundSize = "cover";
+          document.querySelector(".sun").style.animation = "none";
+          circle.style.backgroundImage = "none";
+          circle.style.animation = " flip 5s infinite";
+          document.querySelector(".infinity").style.display = "block";
+          document.querySelector(".birthYear").style.display = "block";
+        } else {
+          document.querySelector(".sun").style.backgroundImage = "none";
+          document.querySelector(".sun").style.backgroundColor = "none";
+          // document.querySelector(".sun").style.animation="flash 1s infinite"
+          document.querySelector(".infinity").style.display = "none";
+          document.querySelector(".birthYear").style.display = "none";
+
+          circle.style.animation = " none";
+        }
+      }
+
+      light();
+      function light() {
+        let overlay = document.createElement("div");
+        overlay.classList.add("sun");
+        circle.appendChild(overlay);
+        console.log(circle);
+      }
+    </script>
+  </body>
+</html>
